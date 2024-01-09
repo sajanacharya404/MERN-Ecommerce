@@ -56,3 +56,11 @@ export const getAllUser = asyncHandler(async (req, res, next) => {
     isAdmin: userData.isAdmin,
   });
 });
+
+export const logoutUser = asyncHandler(async (req, res, next) => {
+  res.cookie("access-token", "", {
+    httpOnly: true,
+    expires: new Date(0),
+  });
+  res.status(200).json({ message: "User logout successfully" });
+});
