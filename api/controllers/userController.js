@@ -1,6 +1,7 @@
 import User from "../models/userModel.js";
 import asyncHandler from "../middlewares/asyncHandler.js";
 import bcrypt from "bcrypt";
+import createToken from "../utils/createToken.js";
 
 export const createUser = asyncHandler(async (req, res, next) => {
   const { name, email, password } = req.body;
@@ -17,6 +18,7 @@ export const createUser = asyncHandler(async (req, res, next) => {
       email,
       password: hashedPassword,
     });
+    createToken(res, newUser._id);
     res.status(201).json({ newUser });
   } catch (error) {
     res.status(400);
