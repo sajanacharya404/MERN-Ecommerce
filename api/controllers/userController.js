@@ -47,11 +47,11 @@ export const loginUser = asyncHandler(async (req, res, next) => {
   }
 });
 
-export const getAllUser = asyncHandler(async (req, res, next) => {
+export const getAllUsers = asyncHandler(async (req, res) => {
   const userData = await User.find();
   res.status(200).json({
     _id: userData._id,
-    name: userData.email,
+    name: userData.name,
     email: userData.email,
     isAdmin: userData.isAdmin,
   });
