@@ -39,7 +39,7 @@ export const loginUser = asyncHandler(async (req, res, next) => {
     createToken(res, existingUser._id);
     res.status(200).json({
       _id: existingUser._id,
-      name: existingUser.email,
+      name: existingUser.name,
       email: existingUser.email,
       isAdmin: existingUser.isAdmin,
     });
@@ -48,13 +48,22 @@ export const loginUser = asyncHandler(async (req, res, next) => {
 });
 
 export const getAllUsers = asyncHandler(async (req, res) => {
-  const userData = await User.find();
-  res.status(200).json({
-    _id: userData._id,
-    name: userData.name,
-    email: userData.email,
-    isAdmin: userData.isAdmin,
-  });
+  const usersData = await User.find();
+  res.status(200).json(usersData);
+});
+
+export const getCurrentUser = asyncHandler(async (req, res) => {
+  const userData = await User.findById(req.user._id);
+  if (userData) {
+    res.status(200).json({
+      _id: userData._id,
+      name: userData.name,
+      email: userData.email,
+    });
+  } else {
+    res.status(404);
+    throw new Error("User Not found");
+  }
 });
 
 export const logoutUser = asyncHandler(async (req, res, next) => {
