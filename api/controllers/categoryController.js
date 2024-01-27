@@ -59,3 +59,18 @@ export const updateCurrentCategory = asyncHandler(async (req, res) => {
     throw new Error("Category Not found");
   }
 });
+
+export const deleteCategory = asyncHandler(async (req, res) => {
+  const { categoryId } = req.params;
+  try {
+    const category = await Category.findById({ _id: categoryId });
+    if (!category) {
+      res.status(404).json({ message: "Category not found" });
+    }
+    await Category.deleteOne({ _id: categoryId });
+    res.status(200).json({ message: "Category Deleted" });
+  } catch (error) {
+    res.status(404);
+    throw new Error("Category Not found");
+  }
+});

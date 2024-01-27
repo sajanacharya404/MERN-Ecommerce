@@ -2,6 +2,7 @@ import express from "express";
 import { authenticate, authorizeAdmin } from "../middlewares/authMiddleware.js";
 import {
   createCategory,
+  deleteCategory,
   getAllCategory,
   getCategory,
   updateCurrentCategory,
@@ -15,6 +16,12 @@ router.put(
   authenticate,
   authorizeAdmin,
   updateCurrentCategory
+);
+router.delete(
+  "/category/:categoryId",
+  authenticate,
+  authorizeAdmin,
+  deleteCategory
 );
 router.get("/category", authenticate, authorizeAdmin, getAllCategory);
 router.get("/category/:categoryId", authenticate, authorizeAdmin, getCategory);
