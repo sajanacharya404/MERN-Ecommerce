@@ -1,6 +1,6 @@
 import User from "../models/userModel.js";
 import asyncHandler from "../middlewares/asyncHandler.js";
-import bcrypt from "bcrypt";
+import bcrypt, { compare } from "bcrypt";
 import createToken from "../utils/createToken.js";
 
 export const createUser = asyncHandler(async (req, res, next) => {
@@ -35,6 +35,9 @@ export const loginUser = asyncHandler(async (req, res, next) => {
   const existingUser = await User.findOne({ email });
   if (!existingUser) return res.status(400).json("User doesnot exists");
   const comparePassword = bcrypt.compareSync(password, existingUser.password);
+  if (!comparePassword) {
+    return res.status(402).json({ message: "User credentials not match" });
+  }
   if (comparePassword) {
     createToken(res, existingUser._id);
     res.status(200).json({
@@ -72,7 +75,8 @@ export const updateCurrentUser = asyncHandler(async (req, res) => {
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
     if (req.body.password) {
-      user.password = req.body.password;
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+      user.password = hashedPassword;
     }
     const updatedUser = await user.save();
     res.json({
