@@ -90,6 +90,21 @@ export const updateCurrentUser = asyncHandler(async (req, res) => {
     throw new Error("User not found ");
   }
 });
+export const deleteUser = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    if (user.isAdmin) {
+      res.status(400);
+      throw new Error("Admin cannot deleted");
+    }
+    await User.deleteOne({ _id: user._id });
+    res.json({ message: "User deleted" });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});
 
 export const logoutUser = asyncHandler(async (req, res, next) => {
   res.cookie("token", "", {
