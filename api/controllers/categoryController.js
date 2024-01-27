@@ -31,3 +31,21 @@ export const getAllCategory = asyncHandler(async (req, res) => {
     res.status(404);
   }
 });
+
+export const updateCurrentCategory = asyncHandler(async (req, res) => {
+  const { categoryId } = req.params;
+  try {
+    const category = await Category.findOne({ _id: categoryId });
+    if (category) {
+      category.name = req.body.name;
+    }
+    const updatedCategory = await category.save();
+    res.status(200).json({
+      _id: updatedCategory._id,
+      name: updatedCategory.name,
+    });
+  } catch (error) {
+    res.status(404);
+    throw new Error("Category Not found");
+  }
+});
