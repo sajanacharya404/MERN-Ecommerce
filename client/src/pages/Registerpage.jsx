@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
 const Registerpage = () => {
   const [userData, setUserData] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.id]: e.target.value });
@@ -12,9 +13,12 @@ const Registerpage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/api/users", userData);
+      const res =await axios.post("/api/users", userData);
+      if(res.status===200){
+        navigate("/login")
+      }
     } catch (error) {
-      console.log(error);
+      console.log(error); 
     }
   };
 
@@ -56,6 +60,7 @@ const Registerpage = () => {
           </label>
           <input
             id="password"
+            type="password"
             placeholder="enter your password.."
             className="border-2 border-slate-900 outline-none p-2 rounded-md"
             onChange={handleChange}
