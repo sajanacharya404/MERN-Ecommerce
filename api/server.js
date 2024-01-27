@@ -3,8 +3,12 @@ import dotenv from "dotenv";
 //dotenv configuration
 dotenv.config();
 import cookieParser from "cookie-parser";
+//database
 import { connectDb } from "./config/db.js";
+
+//routes
 import userRoutes from "./routes/userRoutes.js";
+import categoryRoutes from "./routes/categoryRoutes.js";
 
 //database connection
 connectDb();
@@ -16,6 +20,7 @@ app.use(express.json());
 
 //routes
 app.use("/api", userRoutes);
+app.use("/api", categoryRoutes);
 
 //server port
 const port = process.env.PORT;
