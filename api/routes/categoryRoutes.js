@@ -3,6 +3,7 @@ import { authenticate, authorizeAdmin } from "../middlewares/authMiddleware.js";
 import {
   createCategory,
   getAllCategory,
+  getCategory,
   updateCurrentCategory,
 } from "../controllers/categoryController.js";
 
@@ -16,5 +17,6 @@ router.put(
   updateCurrentCategory
 );
 router.get("/category", authenticate, authorizeAdmin, getAllCategory);
+router.get("/category/:categoryId", authenticate, authorizeAdmin, getCategory);
 
 export default router;

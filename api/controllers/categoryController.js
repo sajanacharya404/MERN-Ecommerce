@@ -32,6 +32,16 @@ export const getAllCategory = asyncHandler(async (req, res) => {
   }
 });
 
+export const getCategory = asyncHandler(async (req, res) => {
+  const { categoryId } = req.params;
+  try {
+    const category = await Category.findById({ _id: categoryId });
+    res.status(200).json(category);
+  } catch (error) {
+    res.status(404);
+  }
+});
+
 export const updateCurrentCategory = asyncHandler(async (req, res) => {
   const { categoryId } = req.params;
   try {
