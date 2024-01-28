@@ -9,6 +9,7 @@ import { connectDb } from "./config/db.js";
 //routes
 import userRoutes from "./routes/userRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
+import productRoutes from "./routes/productRoutes.js";
 
 //database connection
 connectDb();
@@ -21,6 +22,7 @@ app.use(express.json());
 //routes
 app.use("/api", userRoutes);
 app.use("/api", categoryRoutes);
+app.use("/api", productRoutes);
 
 //server port
 const port = process.env.PORT;
