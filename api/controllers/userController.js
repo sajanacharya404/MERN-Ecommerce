@@ -39,12 +39,13 @@ export const loginUser = asyncHandler(async (req, res, next) => {
     return res.status(402).json({ message: "User credentials not match" });
   }
   if (comparePassword) {
-    createToken(res, existingUser._id);
+    const token = createToken(res, existingUser._id);
     res.status(200).json({
       _id: existingUser._id,
       name: existingUser.name,
       email: existingUser.email,
       isAdmin: existingUser.isAdmin,
+      token,
     });
     return;
   }
