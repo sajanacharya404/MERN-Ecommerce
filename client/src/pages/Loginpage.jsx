@@ -1,11 +1,17 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { setData, setToken } from "../slices/userSlice";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 
 const Loginpage = () => {
-  const [user, setUser] = useState("");
-  const navigate = useNavigate()
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setUser({ ...user, [e.target.id]: e.target.value });
@@ -15,13 +21,19 @@ const Loginpage = () => {
     e.preventDefault();
     try {
       const res = await axios.post("/api/auth", user);
-      if(res.status === 200){
-        navigate("/")
+      const data = await res.data;
+
+      dispatch(setToken(data.token));
+      dispatch(setData(data));
+
+      console.log("res:", res);
+      console.log("Data", data);
+      if (res.status === 200) {
+        navigate("/");
       }
     } catch (error) {
       console.log(error);
     }
-    
   };
 
   return (
