@@ -1,4 +1,3 @@
-import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import Loginpage from "./pages/Loginpage";
@@ -15,13 +14,13 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route element={<PrivateRoute />}>
-          <Route path='/dashboard' element={<Dashboard />}></Route>
+          <Route path="/dashboard" element={<Dashboard />}></Route>
         </Route>
-        <Route path='/' element={<Homepage />} />
-        <Route path='/login' element={<Loginpage />}></Route>
-        <Route path='/register' element={<Registerpage />}></Route>
-        <Route path='/product' element={<Productpage />}></Route>
-        <Route path='/category' element={<Category />}></Route>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/login" element={<Loginpage />}></Route>
+        <Route path="/register" element={<Registerpage />}></Route>
+        <Route path="/product" element={<Productpage />}></Route>
+        <Route path="/category" element={<Category />}></Route>
       </Routes>
     </div>
   );

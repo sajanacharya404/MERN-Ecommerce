@@ -16,58 +16,55 @@ const Navbar = () => {
   };
 
   return (
-    <div className='flex justify-between bg-slate-950 h-[7vh] text-white items-center'>
-      <div className=''>
-        <Link to='/'>
+    <div className="flex justify-between bg-slate-950 h-[7vh] text-white items-center">
+      <div className="">
+        <Link to="/">
           <h1>Ecommerce</h1>
         </Link>
       </div>
-      <div className='flex gap-5  '>
+      <div className="flex gap-5  ">
         {currentUser ? (
           <>
-            <div className='flex  '>
+            <div className="flex items-center ">
               {currentUser && (
-                <Link
-                  to={"/admindashboard"}
-                  className='flex items-center text-black'
-                >
-                  <span className='ml-2'>Dashboard</span>
+                <Link to={"/dashboard"}>
+                  <span className="ml-2 flex ">Dashboard</span>
                 </Link>
               )}
             </div>
-            <div className='flex  ' onClick={handleLogout}>
+            <div className="flex  " onClick={handleLogout}>
               <Link
-                to='/login'
-                className='flex items-center hover:bg-slate-800 p-1 rounded-md ease-in-out duration-200 group'
+                to="/login"
+                className="flex items-center hover:bg-slate-800 p-1 rounded-md ease-in-out duration-200 group"
               >
-                <span className='group-hover:rotate-90'>
+                <span className="group-hover:rotate-90">
                   <AiOutlineLogin />
                 </span>
-                <span className='px-1'>Logout</span>
+                <span className="px-1">Logout</span>
               </Link>
             </div>
           </>
         ) : (
           <>
-            <div className='flex  '>
+            <div className="flex  ">
               <Link
-                to='/login'
-                className='flex items-center hover:bg-slate-800 p-1 rounded-md ease-in-out duration-200 group'
+                to="/login"
+                className="flex items-center hover:bg-slate-800 p-1 rounded-md ease-in-out duration-200 group"
               >
-                <span className='group-hover:rotate-90'>
+                <span className="group-hover:rotate-90">
                   <AiOutlineLogin />
                 </span>
-                <span className='px-1'>Login</span>
+                <span className="px-1">Login</span>
               </Link>
             </div>
 
-            <div className='flex '>
+            <div className="flex ">
               <Link
-                to='/register'
-                className='flex items-center hover:bg-slate-800 p-1 rounded-md ease-in-out duration-200'
+                to="/register"
+                className="flex items-center hover:bg-slate-800 p-1 rounded-md ease-in-out duration-200"
               >
                 <PiUserCirclePlusFill size={20} />
-                <span className='px-1'>Register</span>
+                <span className="px-1">Register</span>
               </Link>
             </div>
           </>
