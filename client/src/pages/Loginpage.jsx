@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { setData, setToken } from "../slices/userSlice";
+import { setData } from "../slices/userSlice";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 
@@ -23,7 +23,6 @@ const Loginpage = () => {
       const res = await axios.post("/api/auth", user);
       const data = await res.data;
 
-      dispatch(setToken(data.token));
       dispatch(setData(data));
 
       console.log("res:", res);

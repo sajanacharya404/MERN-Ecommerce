@@ -4,16 +4,15 @@ import { AiOutlineLogin } from "react-icons/ai";
 import { PiUserCirclePlusFill } from "react-icons/pi";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { setToken } from "../slices/userSlice";
+import { setData } from "../slices/userSlice";
 
 const Navbar = () => {
   const { currentUser } = useSelector((state) => state.user);
-
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
     await axios.post("/api/logout");
-    dispatch(setToken(null));
+    dispatch(setData(null));
   };
 
   return (
@@ -27,15 +26,14 @@ const Navbar = () => {
         {currentUser ? (
           <>
             <div className='flex  '>
-              <Link
-                to='/dashboard'
-                className='flex items-center hover:bg-slate-800 p-1 rounded-md ease-in-out duration-200 group'
-              >
-                <span className='group-hover:rotate-90'>
-                  <AiOutlineLogin />
-                </span>
-                <span className='px-1'>Dashboard</span>
-              </Link>
+              {currentUser && (
+                <Link
+                  to={"/admindashboard"}
+                  className='flex items-center text-black'
+                >
+                  <span className='ml-2'>Dashboard</span>
+                </Link>
+              )}
             </div>
             <div className='flex  ' onClick={handleLogout}>
               <Link
